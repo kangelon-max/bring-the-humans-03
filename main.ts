@@ -5,7 +5,7 @@
 // Revision: VIDEO.json is parsed and checked first, so a malformed file fails
 // here with a clear message instead of confusing the gate downstream.
 
-import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const botDir = process.env.MAKEFUN_BOT_DIR ?? '/bot';
@@ -33,4 +33,4 @@ try {
   console.error(`could not copy ${src} -> ${dst}: ${err.message}`);
   process.exit(1);
 }
-console.log(`VIDEO.json copied: ${src} -> ${dst}`);
+console.log(`VIDEO.json copied: ${src} -> ${dst} (${statSync(dst).size} bytes)`);
